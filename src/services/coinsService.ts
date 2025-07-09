@@ -28,7 +28,7 @@ type FetchCoinDetailsSuccessType = {
 
 export async function fetchCoins(currency: string): Promise<FetchCoinsSuccessType | RejectType> {
     try {
-        const res = await apiCoingecko.get<Record<string, unknown>[]>(`/markets?vs_currency=${currency}`);
+        const res = await apiCoingecko.get<Record<string, unknown>[]>(`/coins/markets?vs_currency=${currency}`);
         const coins = res.data.map((coin) => ({
             id: coin.id,
             name: coin.name,
@@ -52,7 +52,7 @@ export async function fetchCoinDetails(
 ): Promise<FetchCoinDetailsSuccessType | RejectType> {
     try {
         const res = await apiCoingecko.get<Record<string, unknown>>(
-            `/${coinId}/market_chart?vs_currency=${currency}&days=1`
+            `/coins/${coinId}/market_chart?vs_currency=${currency}&days=1`
         );
         const coinDetails = {
             prices: res.data.prices,
